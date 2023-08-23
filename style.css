@@ -32,20 +32,25 @@ body {
 
 }
 
-.toggle_chatbot span:last-child {
+.show_chatbot .toggle_chatbot span:first-child,
+.show_chatbot .toggle_chatbot span:last-child {
     /* position: absolute; */
     opacity: 0;
+}
+
+.show_chatbot .toggle_chatbot span:last-child {
+    opacity: 1;
 }
 
 .main {
     border-radius: 15px;
     /* border: 2px solid red; */
-    position: fixed;
+    /* position: fixed; */
     background: white;
-    left: 35%;
+    /* left: 35%; */
     width: 450px;
     height: 550px;
-    margin: 80px auto;
+    margin: 100px auto;
     box-shadow: 1px 1px 10px black;
     overflow: hidden;
     transform: scale(0.5);
@@ -141,7 +146,7 @@ body {
     background-color: rgb(47, 78, 230);
     color: white;
     border-radius: 5px;
-    width: 30px;
+    width: 45px;
     height: 45px;
     line-height: 45px;
     text-align: center;
@@ -151,4 +156,14 @@ body {
 
 .chat_input textarea:valid~span {
     visibility: visible;
+}
+
+@media(max-width:450px) {
+    .main {
+        height: 100%;
+        width: 100%;
+        border-radius: 0px;
+        position: fixed;
+        margin: 0px;
+    }
 }
