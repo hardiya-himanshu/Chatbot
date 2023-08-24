@@ -1,16 +1,20 @@
 const sendChatBtn = document.querySelector(".chat_input span");
 const chatInput = document.querySelector(".chat_input textarea");
 const chatbox = document.querySelector(".chatbox");
+const chatbotToggler = document.querySelector(".toggle_chatbot");
+const chatbotCloseBtn = document.querySelector(".title header span");
 
 let userInput;
-const API_KEY = "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";
+const API_KEY = "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";
+const inputInitHeight = chatInput.scrollHeight;
 
 const createChat = (message,className) => {
     const chatLi = document.createElement("li");
     chatLi.classList.add("chat", className);
-    let chatContent = className === "outgoing"? `<p>${message}</p>`:`<span class="material-symbols-outlined">robot_2</span>
-    <p>${message}</p>`;
+    let chatContent = className === "outgoing"? `<p></p>`:`<span class="material-symbols-outlined">robot_2</span>
+    <p></p>`;
     chatLi.innerHTML=chatContent;
+    chatLi.querySelector("p").textContent = message;
     return chatLi;
 }
 
@@ -34,9 +38,11 @@ const generateResponse = (incomingChat) =>{
         messageElement.textContent = data.choices[0].message.content;
         // console.log(data);
     }).catch((error)=>{
+        messageElement.classList.add("error");
         messageElement.textContent = "Oops! Something went wrong.";
-
-    })
+    }).finally(()=>{
+        chatbox.scrollTo(0,chatbox.scrollHeight)
+    }); 
 }
 
 const sendChat = () => {
@@ -44,15 +50,39 @@ const sendChat = () => {
     if(!userInput){
         return;
     }
+    chatInput.value="";
+    chatInput.style.height=`${inputInitHeight}px`;
+
     let newChat = createChat(userInput,"outgoing");
     chatbox.appendChild(newChat);
-
+    chatbox.scrollTo(0,chatbox.scrollHeight);
     
     setTimeout(()=>{
         const incomingChat = createChat("...", "incoming")
         chatbox.appendChild(incomingChat);
+        chatbox.scrollTo(0,chatbox.scrollHeight);
         generateResponse(incomingChat);
     }, 300); 
 }
+
+chatbotToggler.addEventListener("click", ()=>{
+    document.body.classList.toggle("show_chatbot")
+});
+
+chatbotCloseBtn.addEventListener("click", ()=>{
+    document.body.classList.remove("show_chatbot")
+});
+
+chatInput.addEventListener("input",()=>{
+    chatInput.style.height=`${inputInitHeight}px`;
+    chatInput.style.height=`${chatInput.scrollHeight}px`;
+})
+
+chatInput.addEventListener("keydown",(e)=>{
+    if(e.key === "Enter" && !e.shiftKey && window.innerWidth>800){
+        e.preventDefault();
+        sendChat();
+    }
+})
 
 sendChatBtn.addEventListener("click", sendChat);

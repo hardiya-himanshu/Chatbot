@@ -7,6 +7,10 @@
 
 body {
     background-color: rgb(154, 198, 245);
+    /* background-image: url(./assets/bg.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat; */
 }
 
 .toggle_chatbot {
@@ -17,7 +21,7 @@ body {
     outline: none;
     border: none;
     cursor: pointer;
-    top: 0%;
+    top: 1%;
     left: 47.5%;
     height: 70px;
     width: 70px;
@@ -25,15 +29,25 @@ body {
     border-radius: 10px;
     color: white;
     box-shadow: 1px 1px 5px black;
+
+}
+
+.show_chatbot .toggle_chatbot span {
+
+    transform: rotate(90deg);
 }
 
 .toggle_chatbot span {
     position: absolute;
+    transition: all ease-in 0.2s;
 
 }
 
-.show_chatbot .toggle_chatbot span:first-child,
-.show_chatbot .toggle_chatbot span:last-child {
+.toggle_chatbot span:last-child {
+    opacity: 0;
+}
+
+.show_chatbot .toggle_chatbot span:first-child {
     /* position: absolute; */
     opacity: 0;
 }
@@ -44,17 +58,16 @@ body {
 
 .main {
     border-radius: 15px;
-    /* border: 2px solid red; */
-    /* position: fixed; */
     background: white;
-    /* left: 35%; */
     width: 450px;
     height: 550px;
-    margin: 100px auto;
+    margin: 90px auto;
     box-shadow: 1px 1px 10px black;
     overflow: hidden;
-    transform: scale(0.5);
+    transform: scale(0.0);
     pointer-events: none;
+    transition: all ease .1s;
+    transform-origin: top;
 }
 
 .show_chatbot .main {
@@ -102,10 +115,16 @@ body {
     background-color: rgb(47, 78, 230);
     padding: 12px;
     max-width: 75%;
+    white-space: pre-wrap;
     border-radius: 10px 10px 0px 10px;
     font-size: 18px;
     color: white;
     font-weight: 500;
+}
+
+.chatarea .chatbox .chat p.error {
+    background-color: rgb(245, 210, 210);
+    color: red;
 }
 
 .chatarea .chatbox .incoming p {
@@ -133,6 +152,7 @@ body {
 
 .main .chat_input {
     /* border: 2px solid red;  */
+    background-color: white;
     display: flex;
     gap: 5px;
     position: absolute;
@@ -143,7 +163,7 @@ body {
 }
 
 .chat_input textarea {
-
+    max-height: 130px;
     border: none;
     resize: none;
     outline: none;
